@@ -1,0 +1,253 @@
+
+How to send a request?
+
+Authorization:Bearer 
+eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJya
+0BzdHVkZW50LmNvbSIsImlhdCI6MTc0NDc4NDg1NywiZXhwIjox
+NzQ0ODcxMjU3fQ.VSrWc2qRaRUBMebiH5VD6fWnTKqwx
+x7S0T1g3QwD4fbVZwgwUlxzoq28J_D_7i1ULHYB3AjoUyklHZjM8i79qQ
+
+Key | Value
+Authorization | Bearer <paste your token>
+
+http://localhost:8080/api/admin/register(post)1 (For admin register)
+
+
+{
+  "name": "Sreenivas",
+  "email": "sree@smartc.com",
+  "password": "sree5113"
+}
+
+
+http://localhost:8080/api/auth/login(post) 2 (for logging in and to get JWT token of all 3 roles)
+
+
+{
+  "email": "sree@smartc.com",
+  "password": "sree5113"
+}
+
+{
+"email": "jd@smartc.com",
+  "password": "john123"
+}
+
+{
+"email": "ravi@student.com",
+  "password": "ravi123"
+}
+
+
+
+
+
+http://localhost:8080/api/faculty(post, get)3,4 (to rigister single faculty and get all faculty data[need to use admin token for authentication])
+
+
+{
+  "name": "John Doe",
+  "email": "jd@smartc.com",
+  "password": "john123",
+  "department": "Computer Science",
+  "subject": "Java",
+  "phone": "1234567890",
+  "joinDate": "2025-04-12"
+}
+
+
+http://localhost:8080/api/student(post, get)5,6 (to rigister single students and get all student data[need to use admin token for authentication])
+
+{
+  "name": "Ravi Kumar",
+  "email": "ravi@student.com",
+  "password": "ravi123",
+  "grade": 10,
+  "addmission_no": 102,
+  "parent": "Mahesh Kumar",
+  "mobile": 9876543210,
+  "joinDate": "2024-06-10"
+}
+
+
+
+
+
+
+
+http://localhost:8080/api/admin/delete(delete)7 (to delete admin account by him/her self[need to use admin token])
+
+
+
+
+
+
+http://localhost:8080/api/faculty/me(get)8 (faculty can fetch there own deails by using his/her token )
+
+http://localhost:8080/api/faculty/me(put)9 (faculty can update there own deails by using his/her token)
+
+{
+  "name": "John Doe",
+  "email": "jd@smartc.com",
+  "password": "john123",
+  "department": "Computer Science",
+  "subject": "Java",
+  "phone": "1234567890",
+  "joinDate": "2025-04-12"
+}
+
+
+
+http://localhost:8080/api/student/me(get)10 (students can fetch there own deails by using his/her token)
+
+
+
+http://localhost:8080/api/attendance(post)11 (for posting attendance [need to use faculty token])
+
+{
+    "studentId":1,
+    "subject":"DSA",
+    "present":true,
+    "date":"2024-06-15"
+}
+
+
+http://localhost:8080/api/attendance/student/1(get)12 (to get attendance details of a single student [need to use faculty token] )
+
+[
+    {
+        "id": 1,
+        "studentName": "Ravi Kumar",
+        "subject": "DSA",
+        "present": true,
+        "date": "2024-06-15"
+    },
+    {
+        "id": 2,
+        "studentName": "Ravi Kumar",
+        "subject": "java basics",
+        "present": false,
+        "date": "2024-06-15"
+    },
+    {
+        "id": 3,
+        "studentName": "Ravi Kumar",
+        "subject": "reasoning",
+        "present": false,
+        "date": "2024-06-15"
+    },
+    {
+        "id": 4,
+        "studentName": "Ravi Kumar",
+        "subject": "coding class",
+        "present": true,
+        "date": "2024-06-15"
+    }
+]
+
+
+
+
+http://localhost:8080/api/attendance/me(get)13 (students can check there own attendance[need to use student token])
+
+ [
+    {
+        "id": 1,
+        "studentName": "Ravi Kumar",
+        "subject": "DSA",
+        "present": true,
+        "date": "2024-06-15"
+    },
+    {
+        "id": 2,
+        "studentName": "Ravi Kumar",
+        "subject": "java basics",
+        "present": false,
+        "date": "2024-06-15"
+    },
+    {
+        "id": 3,
+        "studentName": "Ravi Kumar",
+        "subject": "reasoning",
+        "present": false,
+        "date": "2024-06-15"
+    },
+    {
+        "id": 4,
+        "studentName": "Ravi Kumar",
+        "subject": "coding class",
+        "present": true,
+        "date": "2024-06-15"
+    }
+]
+
+http://localhost:8080/api/grades(post)14 (for posting students grades [need to use faculty token] )
+
+{
+    "studentId":1,
+    "subject":"DSA",
+    "grade":"C"
+}
+
+http://localhost:8080/api/grades/student/1(get)15 (to fetch student grade by faculty [need to use faculty token])
+
+[
+    {
+        "id": 1,
+        "subject": "reasoning",
+        "grade": "A+",
+        "studentName": "Ravi Kumar",
+        "facultyName": "John Doe"
+    },
+    {
+        "id": 2,
+        "subject": "computer science",
+        "grade": "A",
+        "studentName": "Ravi Kumar",
+        "facultyName": "John Doe"
+    },
+    {
+        "id": 3,
+        "subject": "DSA",
+        "grade": "C",
+        "studentName": "Ravi Kumar",
+        "facultyName": "John Doe"
+    }
+]
+
+http://localhost:8080/api/grades/me(get)16 (students can fetch there own grades [need student token])
+
+[
+    {
+        "id": 1,
+        "subject": "reasoning",
+        "grade": "A+",
+        "studentName": "Ravi Kumar",
+        "facultyName": "John Doe"
+    },
+    {
+        "id": 2,
+        "subject": "computer science",
+        "grade": "A",
+        "studentName": "Ravi Kumar",
+        "facultyName": "John Doe"
+    },
+    {
+        "id": 3,
+        "subject": "DSA",
+        "grade": "C",
+        "studentName": "Ravi Kumar",
+        "facultyName": "John Doe"
+    }
+]
+
+
+http://localhost:8080/api/admin/dashboard(get)17 (admin and faculty can get the data of total Students, faculty and recentLogins)
+
+[need to use admin or faculty token ]
+
+{
+    "totalStudents": 2,
+    "totalFaculty": 1,
+    "recentLogins": 2
+}
