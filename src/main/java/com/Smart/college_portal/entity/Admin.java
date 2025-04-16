@@ -30,7 +30,7 @@ public class Admin implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    // You can customize this if you're using roles
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));

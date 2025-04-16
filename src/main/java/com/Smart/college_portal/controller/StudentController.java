@@ -14,21 +14,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/student")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')")
 public class StudentController {
 
     private final StudentService studentService;
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody StudentRequestDTO dto){
         return ResponseEntity.ok(studentService.createStudent(dto));
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<StudentResponseDTO>> getAllStudents(){
         return ResponseEntity.ok(studentService.getAllStudent());
+    }
+
+
+
+    @PreAuthorize("hasRole('STUDENT')")
+    @GetMapping("/me")
+    public ResponseEntity<StudentResponseDTO> getOwnStudentProfile(){
+        return ResponseEntity.ok(studentService.getOwnProfile());
     }
 
 

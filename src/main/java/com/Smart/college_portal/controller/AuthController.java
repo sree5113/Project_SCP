@@ -10,6 +10,7 @@ import com.Smart.college_portal.security.JwtService;
 import com.Smart.college_portal.service.AdminRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,11 +27,6 @@ public class AuthController {
     private final JwtService jwtService;
     private final AdminRegisterService adminRegisterService;
 
-    @PostMapping("/register")
-    public ResponseEntity<String> registerAdmin(@RequestBody AdminRegisterRequest request) {
-        return ResponseEntity.ok(adminRegisterService.registerAdmin(request));
-    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
@@ -40,7 +36,6 @@ public class AuthController {
                 )
         );
 
-        // Cast to Admin (your custom entity)
         UserDetails user = (UserDetails) authentication.getPrincipal();
 
         String token = jwtService.generateToken(user);

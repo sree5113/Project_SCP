@@ -40,4 +40,7 @@ public class User {
         this.createdAt = LocalDateTime.now();
     }
 
+    @Column(name = "last_login")
+    private LocalDateTime lastLogin;
+
 }

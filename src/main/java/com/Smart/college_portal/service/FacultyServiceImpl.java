@@ -75,7 +75,7 @@ public class FacultyServiceImpl implements FacultyService {
                 .collect(Collectors.toList());
     }
 
-    // In FacultyServiceImpl.java
+
     @Override
     public FacultyResponseDTO getOwnProfile() {
         String email = CurrentUserUtil.getCurrentUserEmail();
@@ -99,13 +99,12 @@ public class FacultyServiceImpl implements FacultyService {
         Faculty faculty = facultyRepository.findByUser(user)
                 .orElseThrow(() -> new RuntimeException("Faculty not found"));
 
-        // update details
+
         faculty.setName(dto.getName());
+        user.setEmail(dto.getEmail());
         faculty.setDepartment(dto.getDepartment());
         faculty.setSubject(dto.getSubject());
         faculty.setPhone(dto.getPhone());
-        faculty.setJoinDate(dto.getJoinDate());
-
         facultyRepository.save(faculty);
 
         return new FacultyResponseDTO(

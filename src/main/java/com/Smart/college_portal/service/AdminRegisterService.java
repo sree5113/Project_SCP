@@ -15,9 +15,8 @@ public class AdminRegisterService {
     private final PasswordEncoder passwordEncoder;
 
     public String registerAdmin(AdminRegisterRequest request) {
-        boolean exists = adminRepository.findByEmail(request.getEmail()).isPresent();
-        if (exists) {
-            return "Admin already exists with email: " + request.getEmail();
+        if (adminRepository.count() > 0) {
+            return " Admin already exists. Only one admin allowed!";
         }
 
         Admin admin = Admin.builder()
@@ -27,6 +26,10 @@ public class AdminRegisterService {
                 .build();
 
         adminRepository.save(admin);
-        return "Admin registered successfully!";
+        return " Admin registered successfully!";
+    }
+
+    public long countAdmins() {
+        return adminRepository.count();
     }
 }

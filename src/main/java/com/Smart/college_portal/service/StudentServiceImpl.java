@@ -1,12 +1,15 @@
 package com.Smart.college_portal.service;
 
 
+import com.Smart.college_portal.dto.FacultyRequestDTO;
+import com.Smart.college_portal.dto.FacultyResponseDTO;
 import com.Smart.college_portal.dto.StudentRequestDTO;
 import com.Smart.college_portal.dto.StudentResponseDTO;
 import com.Smart.college_portal.entity.Student;
 import com.Smart.college_portal.entity.User;
 import com.Smart.college_portal.repository.StudentRepository;
 import com.Smart.college_portal.repository.UserRepository;
+import com.Smart.college_portal.util.CurrentUserUtil;
 import com.Smart.college_portal.util.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +25,7 @@ public class StudentServiceImpl implements StudentService{
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public StudentResponseDTO createStudent(StudentRequestDTO dto) {
@@ -69,5 +73,19 @@ public class StudentServiceImpl implements StudentService{
                         s.getMobile(),
                         s.getJoinDate()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentResponseDTO getOwnProfile() {
+        String email = CurrentUserUtil.getCurrentUserEmail();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+        Student student = studentRepository.findByUser(user)
+                .orElseThrow(()-> new RuntimeException("Student not found"));
+
+        return new StudentResponseDTO(
+                student.getId(), student.getName(), user.getEmail(), student.getGrade(), student.getAddmission_no(),
+                student.getParent(), student.getMobile(), student.getJoinDate()
+        );
     }
 }

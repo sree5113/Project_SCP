@@ -13,20 +13,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/faculty")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')")
 public class FacultyController {
 
     private final FacultyService facultyService;
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<FacultyResponseDTO> createFaculty(@RequestBody FacultyRequestDTO dto) {
         return ResponseEntity.ok(facultyService.createFaculty(dto));
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<FacultyResponseDTO>> getAllFaculty() {
         return ResponseEntity.ok(facultyService.getAllFaculty());
     }
+
 
     @PreAuthorize("hasRole('FACULTY')")
     @GetMapping("/me")
@@ -34,10 +38,13 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.getOwnProfile());
     }
 
+
     @PreAuthorize("hasRole('FACULTY')")
     @PutMapping("/me")
     public ResponseEntity<FacultyResponseDTO> updateOwnFacultyProfile(@RequestBody FacultyRequestDTO dto) {
         return ResponseEntity.ok(facultyService.updateOwnProfile(dto));
     }
+
+
 
 }

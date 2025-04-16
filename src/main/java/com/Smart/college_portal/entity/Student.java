@@ -35,5 +35,5 @@ public class Student {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user; // link to login
+    private User user;
 }

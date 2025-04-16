@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -33,10 +34,8 @@ public class JwtService {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-
-        // Cast to your custom User class to get the role
         if (userDetails instanceof User user) {
-            claims.put("role", user.getRole().name()); // Assuming role is an enum
+            claims.put("roles", List.of("ROLE_" +user.getRole().name()));
         }
 
         return generateToken(claims, userDetails);

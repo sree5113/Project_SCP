@@ -31,10 +31,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login", "/api/admin/register").permitAll()
+
+                        .requestMatchers("/api/faculty/me/**").hasRole("FACULTY")
+                        .requestMatchers("/api/student/me/**").hasRole("STUDENT")
                         .requestMatchers("/api/faculty/**").hasRole("ADMIN")
                         .requestMatchers("/api/student/**").hasRole("ADMIN")
-                        .requestMatchers("/api/faculty/me").hasRole("Faculty")
                         .anyRequest().authenticated()
+
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
