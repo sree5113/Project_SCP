@@ -38,10 +38,6 @@ http://localhost:8080/api/auth/login(post) 2 (for logging in and to get JWT toke
   "password": "ravi123"
 }
 
-
-
-
-
 http://localhost:8080/api/faculty(post, get)3,4 (to rigister single faculty and get all faculty data[need to use admin token for authentication])
 
 
@@ -69,18 +65,7 @@ http://localhost:8080/api/student(post, get)5,6 (to rigister single students and
   "joinDate": "2024-06-10"
 }
 
-
-
-
-
-
-
 http://localhost:8080/api/admin/delete(delete)7 (to delete admin account by him/her self[need to use admin token])
-
-
-
-
-
 
 http://localhost:8080/api/faculty/me(get)8 (faculty can fetch there own deails by using his/her token )
 
@@ -96,11 +81,7 @@ http://localhost:8080/api/faculty/me(put)9 (faculty can update there own deails 
   "joinDate": "2025-04-12"
 }
 
-
-
 http://localhost:8080/api/student/me(get)10 (students can fetch there own deails by using his/her token)
-
-
 
 http://localhost:8080/api/attendance(post)11 (for posting attendance [need to use faculty token])
 
@@ -144,9 +125,6 @@ http://localhost:8080/api/attendance/student/1(get)12 (to get attendance details
         "date": "2024-06-15"
     }
 ]
-
-
-
 
 http://localhost:8080/api/attendance/me(get)13 (students can check there own attendance[need to use student token])
 
